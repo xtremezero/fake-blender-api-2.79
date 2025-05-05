@@ -5,7 +5,7 @@ with open("README.rst", "r") as fh:
 
 setup(
 	name = 'fake-blender-api-2.79',
-	version = '0.4.1',
+	version = '0.4.0',
 
 	packages = [
 		"aud",
@@ -41,7 +41,7 @@ setup(
 	],
 
 	license='GPLv3',
-	description = "Fake Blender 2.79 Python API for code completion focused on BGE 2.7x and UPBGE 0.2.x",
+	description = "Fake Blender 2.79 Python API for code completion, including BGE",
 	long_description=long_description,
 	long_description_content_type="text/x-rst",
 	author = 'Joel Gomes da Silva',

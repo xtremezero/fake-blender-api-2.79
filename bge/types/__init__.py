@@ -1,7 +1,7 @@
 """This module contains the classes that appear as instances in the Game Engine. A script must interact with these classes if it is to affect the behaviour of objects in a game."""
 
 from ...mathutils import Vector as _Vector, Matrix as _Matrix, Color as _Color
-from typing import Callable as _Callable, Any as _Any
+from typing import Callable as _Callable
 
 
 class PyObjectPlus:
@@ -16,14 +16,6 @@ class PyObjectPlus:
         Normally this is not a problem but when storing game engine data in the GameLogic module, KX_Scenes or other KX_GameObjects its possible to hold a reference to invalid data. Calling an attribute or method on an invalid object will raise a SystemError.
 
         The invalid attribute allows testing for this case without exception handling."""
-
-        self.__customAttributes = {}  # type: dict[str, _Any]
-
-    def __setitem__(self, key: str, value: _Any) -> None:
-        self.__customAttributes[key] = value
-
-    def __getitem__(self, key: str) -> _Any:
-        return self.__customAttributes.get(key)
 
 
 class CValue(PyObjectPlus):
@@ -1990,208 +1982,199 @@ class BL_ArmatureObject(KX_GameObject):
 
         pass
 
-
 class BL_Shader(PyObjectPlus):
-    """BL_Shader GLSL shaders."""
+    """base class - PyObjectPlus
 
-    def setUniformfv(self, name, fList):
-        # type: (str, list[float]) -> None
+    class bge.BL_Shader(PyObjectPlus)
+
+    BL_Shader GLSL shaders.
+
+    TODO - Description"""
+
+    def setUniformfv(self):
         """Set a uniform with a list of float values
 
         Args:
-            name (string): the uniform name
-            fList (list[float]): a list (2, 3 or 4 elements) of float values"""
+        name (string): the uniform name
+        fList (list[float]): a list (2, 3 or 4 elements) of float values"""
         pass
 
     def delSource(self):
-        # type: () -> None
         """Clear the shader. Use this method before the source is changed with setSource."""
         pass
 
     def getFragmentProg(self):
-        # type: () -> str
         """Returns the fragment program.
 
-        Returns:
-            str: The fragment program."""
-        pass
+        Returns:	The fragment program.
+
+        Return type:
+        string"""
+        return "str"
 
     def getVertexProg(self):
-        # type: () -> str
         """Get the vertex program.
 
-        Returns:
-            str: The vertex program."""
-        pass
+        Returns: The vertex program.
+
+        Return type:
+        string"""
+        return "str"
 
     def isValid(self):
-        # type: () -> bool
         """Check if the shader is valid.
 
-        Returns:
-            bool: True if the shader is valid"""
-        pass
+        Returns: True if the shader is valid
 
-    def setAttrib(self, enum):
-        # type: (int) -> None
+        Return type:
+        boolean"""
+        return True
+
+    def setAttrib(self):
         """Set attribute location. (The parameter is ignored a.t.m. and the value of "tangent" is always used.)
 
         Args:
-            enum (int): attribute location value"""
+        enum (integer): attribute location value"""
         pass
 
-    def setNumberOfPasses(self, max_pass):
-        # type: (int) -> None
+    def setNumberOfPasses(self):
         """Set the maximum number of passes. Not used a.t.m.
 
         Args:
-            max_pass (int): the maximum number of passes"""
+        max_pass (integer): the maximum number of passes"""
         pass
 
-    def setSampler(self, name, index):
-        # type: (str, int) -> None
+    def setSampler(self):
         """Set uniform texture sample index.
 
         Args:
-            name (str): Uniform name
-            index (int): Texture sample index."""
+        name (string): Uniform name
+        index (integer): Texture sample index."""
         pass
 
-    def setSource(self, vertexProgram, fragmentProgram):
-        # type: (str, str) -> None
+    def setSource(self):
         """Set the vertex and fragment programs
 
         Args:
-            vertexProgram (str): Vertex program
-            fragmentProgram (str): Fragment program"""
+        vertexProgram (string): Vertex program
+        fragmentProgram (string): Fragment program"""
         pass
 
-    def setUniform1f(self, name, fx):
-        # type: (str, float) -> None
+    def setUniform1f(self):
         """Set a uniform with 1 float value.
 
         Args:
-            name (str): the uniform name
-            fx (float): Uniform value"""
+        name (string): the uniform name
+        fx (float): Uniform value"""
         pass
 
-    def setUniform1i(self, name, fx):
-        # type: (str, int) -> None
+    def setUniform1i(self):
         """Set a uniform with an integer value.
 
         Args:
-            name (str): the uniform name
-            ix (int): the uniform value"""
+        name (string): the uniform name
+        ix (integer): the uniform value"""
         pass
 
-    def setUniform2f(self, name, fx, fy):
-        # type: (str, float, float) -> None
+    def setUniform2f(self):
         """Set a uniform with 2 float values
 
         Args:
-            name (str): the uniform name
-            fx (float): first float value
-            fy (float): second float value"""
+        name (string): the uniform name
+        fx (float): first float value
+        fy (float): second float value"""
         pass
 
-    def setUniform2i(self, name, ix, iy):
-        # type: (str, int, int) -> None
+    def setUniform2i(self):
         """Set a uniform with 2 integer values
 
         Args:
-            name (str): the uniform name
-            ix (int): first integer value
-            iy (int): second integer value"""
+        name (string): the uniform name
+        ix (integer): first integer value
+        iy (integer): second integer value"""
         pass
 
-    def setUniform3f(self, name, fx, fy, fz):
-        # type: (str, float, float, float) -> None
+    def setUniform3f(self):
         """Set a uniform with 3 float values.
 
         Args:
-            name (str): the uniform name
-            fx (float): first float value
-            fy (float): second float value
-            fz (float): third float value"""
+        name (string): the uniform name
+        fx (float): first float value
+        fy (float): second float value
+        fz (float): third float value"""
         pass
 
-    def setUniform3i(self, name, ix, iy, iz):
-        # type: (str, int, int, int) -> None
+    def setUniform3i(self):
         """Set a uniform with 3 integer values
 
         Args:
-            name (str): the uniform name
-            ix (int): first integer value
-            iy (int): second integer value
-            iz (int): third integer value"""
+        name (string): the uniform name
+        ix (integer): first integer value
+        iy (integer): second integer value
+        iz (integer): third integer value"""
         pass
 
-    def setUniform4f(self, name, fx, fy, fz, fw):
-        # type: (str, float, float, float, float) -> None
+    def setUniform4f(self):
         """Set a uniform with 4 float values.
 
         Args:
-            name (string): the uniform name
-            fx (float): first float value
-            fy (float): second float value
-            fz (float): third float value
-            fw (float): fourth float value"""
+        name (string): the uniform name
+        fx (float): first float value
+        fy (float): second float value
+        fz (float): third float value
+        fw (float): fourth float value"""
         pass
 
-    def setUniform4i(self, name, ix, iy, iz, iw):
-        # type: (str, int, int, int, int) -> None
+    def setUniform4i(self):
         """Set a uniform with 4 integer values
 
         Args:
-            name (str): the uniform name
-            ix (int): first integer value
-            iy (int): second integer value
-            iz (int): third integer value
-            iw (int): fourth integer value"""
+        name (string): the uniform name
+        ix (integer): first integer value
+        iy (integer): second integer value
+        iz (integer): third integer value
+        iw (integer): fourth integer value"""
         pass
 
-    def setUniformDef(self, name, type):
-        # type: (str, int) -> None
+    def setUniformDef(self):
         """Define a new uniform
 
         Args:
-            name (str): the uniform name
-            type (UNI_NONE, UNI_INT, UNI_FLOAT, UNI_INT2, UNI_FLOAT2, UNI_INT3, UNI_FLOAT3, UNI_INT4, UNI_FLOAT4, UNI_MAT3, UNI_MAT4, UNI_MAX): uniform type"""
+        name (string): the uniform name
+        type (UNI_NONE, UNI_INT, UNI_FLOAT, UNI_INT2, UNI_FLOAT2, UNI_INT3, UNI_FLOAT3, UNI_INT4, UNI_FLOAT4, UNI_MAT3, UNI_MAT4, UNI_MAX): uniform type"""
         pass
 
-    def setUniformMatrix3(self, name, mat, transpose):
-        # type: (str, _Matrix, bool) -> None
+    def setUniformMatrix3(self):
         """Set a uniform with a 3x3 matrix value
 
         Args:
-            name (str): the uniform name
-            mat (3x3 matrix): A 3x3 matrix [[f, f, f], [f, f, f], [f, f, f]]
-            transpose (bool): set to True to transpose the matrix"""
+        name (string): the uniform name
+        mat (3x3 matrix): A 3x3 matrix [[f, f, f], [f, f, f], [f, f, f]]
+        transpose (boolean): set to True to transpose the matrix"""
         pass
 
-    def setUniformMatrix4(self, name, mat, transpose):
-        # type: (str, _Matrix, bool) -> None
+    def setUniformMatrix4(self):
         """Set a uniform with a 4x4 matrix value
 
         Args:
-            name (str): the uniform name
-            mat (4x4 matrix): A 4x4 matrix [[f, f, f, f], [f, f, f, f], [f, f, f, f], [f, f, f, f]]
-            transpose (bool): set to True to transpose the matrix"""
+        name (string): the uniform name
+        mat (4x4 matrix): A 4x4 matrix [[f, f, f, f], [f, f, f, f], [f, f, f, f], [f, f, f, f]]
+        transpose (boolean): set to True to transpose the matrix"""
         pass
 
-    def setUniformv(self, name, iList):
-        # type: (str, list[int]) -> None
+    def setUniformv(self):
         """Set a uniform with a list of integer values
 
         Args:
-            name (str): the uniform name
-            iList (list[int]): a list (2, 3 or 4 elements) of integer values"""
+        name (string): the uniform name
+        iList (list[integer]): a list (2, 3 or 4 elements) of integer values"""
         pass
 
     def validate(self):
-        # type: () -> None
         """Validate the shader object."""
         pass
+
+    pass
 
 
 class BL_ShapeActionActuator(SCA_IActuator):
@@ -2256,9 +2239,6 @@ class KX_TouchSensor(SCA_ISensor):
 
         self.hitMaterial = ""  # type: str
         """The material of the object in the face hit by the ray. (read-only)."""
-
-
-KX_CollisionSensor = KX_TouchSensor
 
 
 class KX_ArmatureSensor(SCA_ISensor):
@@ -3994,161 +3974,153 @@ class KX_VehicleWrapper(PyObjectPlus):
 
     pass
 
-
 class KX_VertexProxy(SCA_IObject):
-    """A vertex holds position, UV, color and normal information.
+    """base class - SCA_IObject
 
-    Note:
-        The physics simulation is NOT currently updated - physics will not respond to changes in the vertex position."""
+    class bge.KX_VertexProxy(SCA_IObject)
+
+    A vertex holds position, UV, color and normal information.
+
+    Note: The physics simulation is NOT currently updated - physics will not respond to changes in the vertex position."""
 
     def __init__(self):
-        # type: () -> None
-        super().__init__()
-
-        self.XYZ = None  # type: _Vector
-        """The position of the vertex."""
-
-        self.UV = None  # type: _Vector
-        """The texture coordinates of the vertex."""
-
-        self.uvs = []  # type: list[_Vector]
-        """The texture coordinates list of the vertex."""
-
-        self.normal = None  # type: _Vector
-        """The normal of the vertex."""
-
-        self.color = None  # type: _Vector
-        """The color of the vertex."""
-
-        self.colors = []  # type: list[_Vector]
-        """The color list of the vertex."""
-
-        self.x = 0.0  # type: float
-        """The x coordinate of the vertex."""
-
-        self.y = 0.0  # type: float
-        """The y coordinate of the vertex."""
-
-        self.z = 0.0  # type: float
-        """The z coordinate of the vertex."""
-
-        self.u = 0.0  # type: float
-        """The u texture coordinate of the vertex."""
-
-        self.v = 0.0  # type: float
-        """The v texture coordinate of the vertex."""
-
-        self.u2 = 0.0  # type: float
-        """The second u texture coordinate of the vertex."""
-
-        self.v2 = 0.0  # type: float
-        """The second v texture coordinate of the vertex."""
-
-        self.r = 0.0  # type: float
-        """The red component of the vertex color. 0.0 <= r <= 1.0."""
-
-        self.g = 0.0  # type: float
-        """The green component of the vertex color. 0.0 <= g <= 1.0."""
-
-        self.b = 0.0  # type: float
-        """The blue component of the vertex color. 0.0 <= b <= 1.0."""
-
-        self.a = 0.0  # type: float
-        """The alpha component of the vertex color. 0.0 <= a <= 1.0."""
+        self.XYZ = 0
+        self.UV = 0
+        self.normal = 0
+        self.color = 0
+        self.x = 0
+        self.y = 0
+        self.z = 0
+        self.u = 0
+        self.v = 0
+        self.u2 = 0
+        self.v2 = 0
+        self.r = 0
+        self.g = 0
+        self.b = 0
+        self.a = 0
 
     def getXYZ(self):
-        # type: () -> _Vector
         """Gets the position of this vertex.
 
         Returns:
-            Vector: this vertexes position in local coordinates."""
-        pass
+        this vertexes position in local coordinates.
 
-    def setXYZ(self, pos):
-        # type: (_Vector) -> None
+        Return type:
+        Vector((x, y, z))"""
+        from mathutils import Vector
+        return Vector(None)
+
+    def setXYZ(self):
         """Sets the position of this vertex.
 
+        Type:
+        Vector((x, y, z))
+
         Args:
-            pos (Vector): the new position for this vertex in local coordinates."""
+        pos - the new position for this vertex in local coordinates."""
         pass
 
     def getUV(self):
-        # type: () -> _Vector
         """Gets the UV (texture) coordinates of this vertex.
 
         Returns:
-            Vector: this vertexes UV (texture) coordinates."""
-        pass
+        this vertexes UV (texture) coordinates.
 
-    def setUV(self, uv):
-        # type: (_Vector) -> None
+        Return type:
+        Vector((u, v))"""
+        from mathutils import Vector
+        return Vector(None)
+
+    def setUV(self):
         """Sets the UV (texture) coordinates of this vertex.
 
-        Args:
-            uv (Vector): the new uv for this vertex."""
+        Type:
+        Vector((u, v))"""
         pass
 
     def getUV2(self):
-        # type: () -> _Vector
         """Gets the 2nd UV (texture) coordinates of this vertex.
 
         Returns:
-            Vector: this vertexes UV (texture) coordinates."""
-        pass
+        this vertexes UV (texture) coordinates.
 
-    def setUV2(self, uv, unit):
-        # type: (_Vector, int) -> None
+        Return type:
+        Vector((u, v))"""
+        from mathutils import Vector
+        return Vector(None)
+
+    def setUV2(self):
         """Sets the 2nd UV (texture) coordinates of this vertex.
 
+        Type:
+        Vector((u, v))
+
         Args:
-            uv (Vector): the new uv for this vertex.
-            unit (Vector): optional argument, FLAT==1, SECOND_UV==2, defaults to SECOND_UV"""
+        unit - optional argument, FLAT==1, SECOND_UV==2, defaults to SECOND_UV
+        unit - integer"""
         pass
 
     def getRGBA(self):
-        # type: () -> int
         """Gets the color of this vertex.
 
         The color is represented as four bytes packed into an integer value. The color is packed as RGBA.
 
-        Since Python offers no way to get each byte without shifting, you must use the struct module to access color
-        in an machine independent way.
+        Since Python offers no way to get each byte without shifting, you must use the struct module to access color in an machine independent way.
 
         Because of this, it is suggested you use the r, g, b and a attributes or the color attribute instead.
 
-        Returns:
-            int: 4 byte integer with one byte per color channel in RGBA format."""
-        pass
+        import struct;
+        col = struct.unpack('4B', struct.pack('I', v.getRGBA()))
+        # col = (r, g, b, a)
+        # black = (  0, 0, 0, 255)
+        # white = (255, 255, 255, 255)
 
-    def setRGBA(self, col):
-        # type: (int | _Vector) -> None
+        Returns:
+        packed color. 4 byte integer with one byte per color channel in RGBA format.
+
+        Return type:
+        integer"""
+        return 0
+
+    def setRGBA(self):
         """Sets the color of this vertex.
 
-        See getRGBA() for the format of col, and its relevant problems. Use the r, g, b and a attributes or the color
-        attribute instead.
+        See getRGBA() for the format of col, and its relevant problems. Use the r, g, b and a attributes or the color attribute instead.
 
-        setRGBA() also accepts a four component list as argument col. The list represents the color as [r, g, b, a]
-        with black = [0.0, 0.0, 0.0, 1.0] and white = [1.0, 1.0, 1.0, 1.0]
+        setRGBA() also accepts a four component list as argument col. The list represents the color as [r, g, b, a] with black = [0.0, 0.0, 0.0, 1.0] and white = [1.0, 1.0, 1.0, 1.0]
+
+        v.setRGBA(0xff0000ff) # Red
+        v.setRGBA(0xff00ff00) # Green on little endian, transparent purple on big endian
+        v.setRGBA([1.0, 0.0, 0.0, 1.0]) # Red
+        v.setRGBA([0.0, 1.0, 0.0, 1.0]) # Green on all platforms.
 
         Args:
-            col (integer or list [r, g, b, a]): the new color of this vertex in packed RGBA format."""
+        col (integer or list [r, g, b, a]): the new color of this vertex in packed RGBA format."""
         pass
 
     def getNormal(self):
-        # type: () -> _Vector
         """Gets the normal vector of this vertex.
 
         Returns:
-            Vector: normalized normal vector."""
-        pass
+        normalized normal vector.
 
-    def setNormal(self, normal):
-        # type: (_Vector) -> None
+        Return type:
+        Vector((nx, ny, nz))"""
+        from mathutils import Vector
+        return Vector(None)
+
+    def setNormal(self):
         """Sets the normal vector of this vertex.
 
+        Type:
+        sequence of floats [r, g, b]
+
         Args:
-            normal (Vector): the new normal of this vertex."""
+        normal - the new normal of this vertex."""
         pass
+
+    pass
 
 
 class KX_VisibilityActuator(SCA_IActuator):

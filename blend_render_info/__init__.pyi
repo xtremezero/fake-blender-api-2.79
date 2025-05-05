@@ -1,0 +1,6 @@
+import typing
+import collections.abc
+import typing_extensions
+
+def main(): ...
+def read_blend_rend_chunk(path): ...
